@@ -26,6 +26,7 @@ function parseURLParams(url) {
 
 // Gets position from leaflet and puts into mapbox to generate the map
 function get_current_pos(position) {
+    console.log("get_current_pos")
     pos = [position.coords.latitude, position.coords.longitude];
     const mymap = L.map('map').setView([pos[0], pos[1]], 10);
 
