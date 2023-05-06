@@ -84,7 +84,7 @@ function get_current_pos(position) {
     var newMarker;
     around.then(_ => _.data)
         .then(data => {
-            console.log(data);
+            console.log("aaaaaa", data);
             for (var i = 0; i < data.length; i++) {
                 let img;
                 switch (data[i].type) {
