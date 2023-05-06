@@ -1,4 +1,6 @@
 
+console.log("heckers");
+
 // Api key for mapbox 
 const apiKey = 'pk.eyJ1IjoianA4NDEzMzEiLCJhIjoiY2wzZjEwMGE0MDBiaTNla2JsZnB0M3RmdSJ9.ZLQyQW6BpT7i2PcIG2beOw';
 
