@@ -113,10 +113,10 @@ function get_current_pos(position) {
 // Initializing variables
 let pos = [0, 0];
 const status = document.querySelector('.status');
+
 // Lamada 
-function run() {
-    navigator.geolocation.getCurrentPosition(get_current_pos)
-}
+navigator.geolocation.getCurrentPosition(get_current_pos)
+
 let display = false;
 
 // On button click it runs the getLocation() function
@@ -140,7 +140,7 @@ async function post(endpoint = "/", body = {}) {
 }
 
 // getLocation() function
-function getLocation(pos, params={}) {
+function getLocation(pos, params = {}) {
     let x = post("/info", {
         "lat": pos[0],
         "lon": pos[1],
