@@ -3,4 +3,4 @@ project(back)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(back main.cpp)
+add_executable(back src/main.cpp)
