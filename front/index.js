@@ -84,6 +84,7 @@ function get_current_pos(position) {
     var newMarker;
     around.then(_ => _.data)
         .then(data => {
+            console.log(data);
             for (var i = 0; i < data.length; i++) {
                 let img;
                 switch (data[i].type) {
@@ -145,6 +146,7 @@ function getLocation(pos, params={}) {
         "dist": 5,
         params,
     });
+    console.log(x);
     return x;
 }
 
@@ -188,3 +190,7 @@ function init() {
 }
 
 init();
+
+// getLocation().then(v => console.log("aaa",v));
+// let v = getLocation([0,0]);
+// console.log(v);
