@@ -28,12 +28,13 @@
         <input type = "checkbox" id = "civilization" value = "civilization"><label for="civilization">civilization</label></input>
        
     </form> -->
-    <form method="post" action="/Tests/Post" onsubmit="return ValidateForm();">
+    <form>
         <fieldset>
-        <legend>What is Your Favorite Pet?</legend>
-        <input type="radio" name="favorite_pet" value="Cats" checked>Cats<br>
-        <input type="radio" name="favorite_pet" value="Dogs">Dogs<br>
-        <input type="radio" name="favorite_pet" value="Birds">Birds<br>
+        <legend>Type of resource</legend>
+        <input type="radio" name="type" value="-1" checked>Unknown<br>
+        <input type="radio" name="type" value="0">Food<br>
+        <input type="radio" name="type" value="1">Shelter<br>
+        <input type="radio" name="type" value="2">Water<br>
             <br>
         <input type="submit" value="Submit now">
         </fieldset>

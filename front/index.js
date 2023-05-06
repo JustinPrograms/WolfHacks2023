@@ -67,11 +67,11 @@ function getLocation() {
     }));
 }
 
-function addLocation() {
+function addLocation(type) {
     console.log(post("/add", {
         "lat": pos[0],
         "lon": pos[1],
-        "type": -1,
+        "type": type,
     }))
 }
 
@@ -129,17 +129,33 @@ function showPosition(position) {
 
 }*/
 
-function ValidateForm()
-{
-    var radioButtons = document.getElementsByName("favorite_pet");
-    for(var i = 0; i < radioButtons.length; i++)
-    {
-        if(radioButtons[i].checked == true)
-        {
-            if(confirm("You have selected " + radioButtons[i].value + " as your favorite pet. Is that correct?"))
-                return true;
-            else
-                return false;
+function onSubmit(event) {
+    type = -1;
+    event.preventDefault();
+    var radioButtons = document.getElementsByName("type");
+    for (var i = 0; i < radioButtons.length; i++) {
+        if (radioButtons[i].checked == true) {
+            type = radioButtons[i].value;
         }
     }
+    addLocation(parseInt(type));
 }
+
+let form;
+let action;
+
+function findElements() {
+    form = document.querySelector('form');
+    ({ action } = form);
+}
+
+function subscribe() {
+    form.addEventListener('submit', onSubmit);
+}
+
+function init() {
+    findElements();
+    subscribe();
+}
+
+init();
