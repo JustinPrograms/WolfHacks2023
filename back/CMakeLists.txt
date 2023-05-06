@@ -6,6 +6,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpqxx -lpq -pthread")
 
 find_package(OpenSSL REQUIRED)
 
-add_executable(back src/main.cpp lib/http.hpp lib/json.h)
+add_executable(back src/main.cpp lib/http.hpp lib/json.hpp)
 
 target_link_libraries(back OpenSSL::SSL)

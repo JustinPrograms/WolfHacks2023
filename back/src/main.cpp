@@ -1,7 +1,7 @@
 #include <iostream>
 #include <pqxx/pqxx>
 #include "../lib/http.hpp"
-#include "../lib/json.h"
+#include "../lib/json.hpp"
 
 using namespace std;
 using namespace httplib;
@@ -30,19 +30,20 @@ auto get_from_sql(const string &url, const string &s) {
   return out;
 }
 
+void send_to_sql(const std::string &url, const std::string &s) {
+  std::cout << "sql << " << s << std::endl;
+  pqxx::connection CONN(url);
+  pqxx::work c(CONN);
+  c.exec(s);
+  c.commit();
+}
+
 int main() {
   const string sql_url = "postgresql://hecker:"
                          + i_from("settings.txt")
                          + "@chill-whale-766.g8z.cockroachlabs.cloud:26257/wolf23?sslmode=verify-full";
   Server server;
   vector<Client> other_servers; // for mesh, later time
-
-//  for (auto i: get_from_sql(sql_url, "SELECT lat, long FROM locations")) {
-//    cout << "lat:" << i[0]
-//         << " | long:" << i[1]
-//         << endl;
-//  }
-
   /*
    * Post: User sends qr location
    * - Find things nearby
@@ -61,18 +62,38 @@ int main() {
    * }
    */
   server.Post("/info", [sql_url](auto req, auto &res) {
-      // TODO: send available postings in the area
+      json in = json::parse(req.body);
       json out;
       out["time"] = time(nullptr);
-      for (auto row : get_from_sql(sql_url, "SELECT lat, long, type FROM locations where"))
-//      res.set_content("not implemented", "text.plain");
+      out["data"] = {};
+      string sql = "select lat, lon, type from locations where "
+                   "ABS(" + to_string(in["lat"].get<float>()) + " - lat) < 4"
+                   + " AND ABS(" + to_string(in["lon"].get<float>()) + " - lon) < 4";
+      for (auto row: get_from_sql(sql_url, sql)) {
+        cout << "lat:" << row[0] << " | lon:" << row[1] << endl;
+        out["data"] += {
+            {"lat",  row[0].as<float>()},
+            {"lon",  row[1].as<float>()},
+            {"type", row[2].as<int>()},
+        };
+      }
+      res.set_content(out.dump(), "application/json");
   });
 
-//  server.Post("/net/add", [](auto req, auto &res) {
-//      res.set_content(json{
-//              {""}
-//      })
-//  })
+  server.Post("/add", [sql_url](auto req, auto &res) {
+      json in = json::parse(req.body);
+
+      send_to_sql(sql_url, "INSERT INTO locations (lat, lon, type) VALUES ("
+                           + to_string(in["lat"].get<float>()) + ","
+                           + to_string(in["lon"].get<float>()) + ","
+                           + to_string(in["type"].get<int>()) + ");");
+
+      res.set_content("added", "text/plain");
+  });
+
+  server.set_logger([](const auto &req, const auto &res) {
+      std::cout << "req: " << req.body << "\t-\tres: " << res.body << std::endl;
+  });
 
   server.listen("0.0.0.0", 8080);
   return 0;
