@@ -17,9 +17,22 @@
 </head>
 <body>
     
-    <div id="map"></div>
 
+
+    <div id="map"></div>
+    <form>
+        <input type = "text" placeholder="name of marker" id="name"></input>
+        <h4 id="typeMarker">Type of Marker</h4>
+        <input type = "checkbox" id = "food" value = "food"><label for="food">Food</label></input>
+        <input type = "checkbox" id = "water" value = "water"><label for="water">Water</label></input>
+        <input type = "checkbox" id = "civilization" value = "civilization"><label for="civilization">civilization</label></input>
+       
+    </form>
+    <button id = "getLocation" onclick="getLocation()">Add Marker at Current Location</button>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="index.js"></script>
+
+
+
 </body>
 </html>
