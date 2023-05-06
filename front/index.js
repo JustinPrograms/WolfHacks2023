@@ -162,7 +162,7 @@ function addLocation(type) {
 // Gets which button is clicked from the HTML and adds the current location on the map
 function onSubmit(event) {
     type = -1;
-    event.preventDefault();
+    // event.preventDefault();
     var radioButtons = document.getElementsByName("type");
     for (var i = 0; i < radioButtons.length; i++) {
         if (radioButtons[i].checked == true) {
