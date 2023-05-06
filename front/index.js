@@ -114,8 +114,9 @@ function get_current_pos(position) {
 let pos = [0, 0];
 const status = document.querySelector('.status');
 // Lamada 
-navigator.geolocation.getCurrentPosition(get_current_pos)
-
+function run() {
+    navigator.geolocation.getCurrentPosition(get_current_pos)
+}
 let display = false;
 
 // On button click it runs the getLocation() function
