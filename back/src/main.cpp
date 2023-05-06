@@ -62,6 +62,7 @@ int main() {
    * }
    */
   server.Post("/info", [sql_url](auto req, auto &res) {
+      res.set_header("Access-Control-Allow-Origin", "*");
       json in = json::parse(req.body);
       json out;
       out["time"] = time(nullptr);
@@ -81,6 +82,7 @@ int main() {
   });
 
   server.Post("/add", [sql_url](auto req, auto &res) {
+      res.set_header("Access-Control-Allow-Origin", "*");
       json in = json::parse(req.body);
 
       send_to_sql(sql_url, "INSERT INTO locations (lat, lon, type) VALUES ("
@@ -88,7 +90,7 @@ int main() {
                            + to_string(in["lon"].get<float>()) + ","
                            + to_string(in["type"].get<int>()) + ");");
 
-      res.set_content("added", "text/plain");
+      res.set_content(R"({"value":"added"})", "application/json");
   });
 
   server.set_logger([](const auto &req, const auto &res) {
