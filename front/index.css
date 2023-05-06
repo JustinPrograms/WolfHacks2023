@@ -1,4 +1,35 @@
-#map { 
-height: 100%;
-width: 100%;
-margin: Srem auto;}  
+#map {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    height: 60vh;
+    width: 70vw;
+    margin: 5vh auto 5vh auto;
+    border: 0.5vh inset black;
+}  
+#logo{
+    height: 5vh;
+    width: 5vh;
+    /* display: flex;
+    align-items: start; */
+    border: 0.5vh solid black;
+}
+body {
+    padding:0%;
+    margin: 0px;
+    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+}
+
+header {
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size: 5vh;
+    height: 3vh;
+    opacity: 0.5;
+    border: 0.5vh solid black;
+    margin-top: 0px;
+    padding: 2vh 2vh 3vh 2vh;
+
+}
