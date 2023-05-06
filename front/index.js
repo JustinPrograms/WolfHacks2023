@@ -83,6 +83,7 @@ function get_current_pos(position) {
     // Creating marker
     const marker = L.marker([pos[0], pos[1]], { icon: userIcon }).addTo(mymap);
 
+    //getting pre-existing markers from the database
     let around = getLocation(pos, parseURLParams(window.location.href));
     var newMarker;
     around.then(_ => _.data)
@@ -166,7 +167,7 @@ function addLocation(type) {
 // Gets which button is clicked from the HTML and adds the current location on the map
 function onSubmit(event) {
     type = -1;
-    // event.preventDefault();
+    event.preventDefault();
     var radioButtons = document.getElementsByName("type");
     for (var i = 0; i < radioButtons.length; i++) {
         if (radioButtons[i].checked == true) {
@@ -174,6 +175,7 @@ function onSubmit(event) {
         }
     }
     addLocation(parseInt(type));
+    location.reload();
 }
 
 let form;
