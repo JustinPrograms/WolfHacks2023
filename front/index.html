@@ -20,15 +20,27 @@
 
 
     <div id="map"></div>
-    <form>
+    <!-- <form>
         <input type = "text" placeholder="name of marker" id="name"></input>
         <h4 id="typeMarker">Type of Marker</h4>
         <input type = "checkbox" id = "food" value = "food"><label for="food">Food</label></input>
         <input type = "checkbox" id = "water" value = "water"><label for="water">Water</label></input>
         <input type = "checkbox" id = "civilization" value = "civilization"><label for="civilization">civilization</label></input>
        
+    </form> -->
+    <form method="post" action="/Tests/Post" onsubmit="return ValidateForm();">
+        <fieldset>
+        <legend>What is Your Favorite Pet?</legend>
+        <input type="radio" name="favorite_pet" value="Cats" checked>Cats<br>
+        <input type="radio" name="favorite_pet" value="Dogs">Dogs<br>
+        <input type="radio" name="favorite_pet" value="Birds">Birds<br>
+            <br>
+        <input type="submit" value="Submit now">
+        </fieldset>
     </form>
     <button id = "getLocation" onclick="getLocation()">Add Marker at Current Location</button>
+    <button id="display" onclick="on_display_button_click()">Show position?</button>
+    <button id="display" onclick="addLocation()">add location</button>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="index.js"></script>
 

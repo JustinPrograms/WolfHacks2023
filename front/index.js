@@ -2,7 +2,7 @@
 // Api key for mapbox 
 const apiKey = 'pk.eyJ1IjoianA4NDEzMzEiLCJhIjoiY2wzZjEwMGE0MDBiaTNla2JsZnB0M3RmdSJ9.ZLQyQW6BpT7i2PcIG2beOw';
 
-function get_current_pos(position){
+function get_current_pos(position) {
     console.log(position);
     pos = [position.coords.latitude, position.coords.longitude];
     console.log(pos);
@@ -31,17 +31,51 @@ function get_current_pos(position){
 }
 
 // Initializing variables
-let pos;
+let pos = [0, 0];
 const status = document.querySelector('.status');
 // Lamada 
 navigator.geolocation.getCurrentPosition(get_current_pos)
 
-console.log("hello")
 console.log(pos)
-function getLocation() {
-    console.log(navigator.geolocation.getCurrentPosition(showPosition))
+
+let display = false;
+
+function on_display_button_click() {
+    display = !display;
+    getLocation();
 }
 
+async function post(endpoint = "/", body = {}) {
+    let response = await fetch(
+        "https://api.unmined.ca" + endpoint,
+        {
+            "method": "POST",
+            // "mode": "no-cors",
+            "body": JSON.stringify(body)
+        }
+    );
+    let data = await response.json();
+    console.log(data);
+    return data;
+}
+
+function getLocation() {
+    console.log(post("/info", {
+        "lat": pos[0],
+        "lon": pos[1],
+        "dist": 5,
+    }));
+}
+
+function addLocation() {
+    console.log(post("/add", {
+        "lat": pos[0],
+        "lon": pos[1],
+        "type": -1,
+    }))
+}
+
+/*
 function showPosition(position) {
     console.log("Latitude  " + position.coords.latitude)
     console.log("Longitude " + position.coords.longitude)
@@ -88,19 +122,24 @@ function showPosition(position) {
     }
 
 
-    fetch(
-        "https://api.unmined.ca",
-        {
-            "body": {
-                "lat": position.coords.latitude,
-                "lon": position.coords.longitude,
-                "dist": 2
-            }
-        }
-    ).then(res => JSON.parse(res))
-        .then(data => console.log(data));
+
 
 
     //send to backend
 
+}*/
+
+function ValidateForm()
+{
+    var radioButtons = document.getElementsByName("favorite_pet");
+    for(var i = 0; i < radioButtons.length; i++)
+    {
+        if(radioButtons[i].checked == true)
+        {
+            if(confirm("You have selected " + radioButtons[i].value + " as your favorite pet. Is that correct?"))
+                return true;
+            else
+                return false;
+        }
+    }
 }
